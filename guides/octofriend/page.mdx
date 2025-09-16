@@ -12,7 +12,7 @@ export const metadata = {
 
 # Octofriend by Synthetic
 
-Octofriend is a small, helpful, zero-telemetry, cephalopod-flavored coding assistant created by Synthetic.
+[Octofriend](https://github.com/synthetic-lab/octofriend) is a small, helpful, zero-telemetry, cephalopod-flavored coding assistant created by Synthetic.
 
 Octo works with any OpenAI-compatible or Anthropic-compatible API and allows you to switch models at will mid-conversation.
 
@@ -64,6 +64,42 @@ Octofriend can use Synthetic's custom-trained models to automatically handle too
 - [diff-apply model](https://huggingface.co/syntheticlab/diff-apply) - Applies code diffs intelligently
 - [fix-json model](https://huggingface.co/syntheticlab/fix-json) - Fixes malformed JSON responses
 
+## Configuration
+
+### Manual Model Configuration
+
+You can manually add models to `~/.config/octofriend/octofriend.json5`:
+
+export const configExamples = [{
+  title: "Synthetic model",
+  language: "json5",
+  source: `{
+  models: [
+    {
+      nickname: "DeepSeek V3",
+      baseUrl: "https://api.glhf.chat/openai/v1",
+      apiEnvVar: "SYNTHETIC_API_KEY",
+      model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    }
+  ]
+}`,
+}, {
+  title: "Local LLM",
+  language: "json5",
+  source: `{
+  models: [
+    {
+      nickname: "Local Llama",
+      baseUrl: "http://localhost:11434",
+      apiEnvVar: "DUMMY_KEY",
+      model: "llama3.2:latest",
+    }
+  ]
+}`,
+}];
+
+<CodeTabs className="mb-4" code={configExamples} />
+
 ## Advanced Usage
 
 ### Docker Support
@@ -86,16 +122,6 @@ octo docker run -- -v /host/path:/container/path -p 8080:80 ubuntu:latest`,
 }];
 
 <CodeTabs className="mb-4" code={dockerExamples} />
-
-### Project Rules
-
-Octofriend looks for instruction files to customize behavior per project:
-
-| File Name | Priority | Description |
-|-----------|----------|-------------|
-| `OCTO.md` | Highest | Octofriend-specific instructions |
-| `CLAUDE.md` | Medium | Claude-compatible instructions |
-| `AGENTS.md` | Lowest | General agent instructions |
 
 ### MCP Server Integration
 
@@ -146,42 +172,6 @@ octofriend --unchained
     <p>Unchained mode skips all tool and edit confirmations. Use with caution!</p>
   </AlertDescription>
 </Alert>
-
-## Configuration
-
-### Manual Model Configuration
-
-You can manually add models to `~/.config/octofriend/octofriend.json5`:
-
-export const configExamples = [{
-  title: "Synthetic model",
-  language: "json5",
-  source: `{
-  models: [
-    {
-      nickname: "DeepSeek V3",
-      baseUrl: "https://api.glhf.chat/openai/v1",
-      apiEnvVar: "SYNTHETIC_API_KEY",
-      model: "hf:deepseek-ai/DeepSeek-V3-0324",
-    }
-  ]
-}`,
-}, {
-  title: "Local LLM",
-  language: "json5",
-  source: `{
-  models: [
-    {
-      nickname: "Local Llama",
-      baseUrl: "http://localhost:11434",
-      apiEnvVar: "DUMMY_KEY",
-      model: "llama3.2:latest",
-    }
-  ]
-}`,
-}];
-
-<CodeTabs className="mb-4" code={configExamples} />
 
 ## Debugging
 
