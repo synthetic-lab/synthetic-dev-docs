@@ -1,0 +1,198 @@
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { InfoIcon } from "lucide-react";
+import { APP_BASE_URL } from "@/app/conf";
+import { Anchor } from "@/app/components/typography";
+import { DiscordLink } from "@/app/dev/components/discord-link";
+
+export const metadata = {
+  title: "Octofriend",
+};
+
+# Octofriend by Synthetic
+
+Octofriend is a small, helpful, zero-telemetry, cephalopod-flavored coding assistant created by Synthetic.
+
+Octo works with any OpenAI-compatible or Anthropic-compatible API and allows you to switch models at will mid-conversation.
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Native Synthetic Support</AlertTitle>
+  <AlertDescription>
+    <p>Octofriend was created by Synthetic and has native support for our API. No additional configuration needed!</p>
+  </AlertDescription>
+</Alert>
+
+## Installation
+
+Install Octofriend globally using npm:
+
+```bash
+npm install --global --omit=dev octofriend
+```
+
+## Quick Start
+
+Once installed, start Octofriend:
+
+export const quickStartExamples = [{
+  title: "Full command",
+  language: "bash",
+  source: `octofriend`,
+}, {
+  title: "Short command",
+  language: "bash",
+  source: `octo`,
+}];
+
+<CodeTabs className="mb-4" code={quickStartExamples} />
+
+## Key Features
+
+### Zero Telemetry
+Octofriend has zero telemetry. Combined with Synthetic's privacy-focused approach, your code stays completely private.
+
+### Model Switching
+Switch between different models mid-conversation when one gets stuck:
+
+### Thinking Token Management
+Octofriend carefully manages thinking tokens for reasoning models like GPT-5 and Claude 4, ensuring optimal performance even with encrypted content.
+
+### Auto-fix Models
+Octofriend can use Synthetic's custom-trained models to automatically handle tool call and code edit failures:
+- [diff-apply model](https://huggingface.co/syntheticlab/diff-apply) - Applies code diffs intelligently
+- [fix-json model](https://huggingface.co/syntheticlab/fix-json) - Fixes malformed JSON responses
+
+## Advanced Usage
+
+### Docker Support
+
+Octofriend has built-in Docker support for sandboxed development:
+
+export const dockerExamples = [{
+  title: "Connect to existing container",
+  language: "bash",
+  source: `octo docker connect your-container-name`,
+}, {
+  title: "Launch new container",
+  language: "bash",
+  source: `octo docker run -- -d -i -t alpine /bin/sh`,
+}, {
+  title: "Complex container setup",
+  language: "bash",
+  source: `# Use -- before docker run arguments
+octo docker run -- -v /host/path:/container/path -p 8080:80 ubuntu:latest`,
+}];
+
+<CodeTabs className="mb-4" code={dockerExamples} />
+
+### Project Rules
+
+Octofriend looks for instruction files to customize behavior per project:
+
+| File Name | Priority | Description |
+|-----------|----------|-------------|
+| `OCTO.md` | Highest | Octofriend-specific instructions |
+| `CLAUDE.md` | Medium | Claude-compatible instructions |
+| `AGENTS.md` | Lowest | General agent instructions |
+
+### MCP Server Integration
+
+Connect Octofriend to MCP (Model Context Protocol) servers for rich data access. After first run, edit `~/.config/octofriend/octofriend.json5`:
+
+export const mcpExamples = [{
+  title: "Basic MCP configuration",
+  language: "json5",
+  source: `{
+  mcpServers: {
+    serverName: {
+      command: "command-string",
+      arguments: [
+        "arguments",
+        "to",
+        "pass",
+      ],
+    },
+  },
+}`,
+}, {
+  title: "Linear workspace integration",
+  language: "json5",
+  source: `{
+  mcpServers: {
+    linear: {
+      command: "npx",
+      arguments: [ "-y", "mcp-remote", "https://mcp.linear.app/sse" ],
+    },
+  },
+}`,
+}];
+
+<CodeTabs className="mb-4" code={mcpExamples} />
+
+### Unchained Mode
+
+For advanced users who want to skip confirmations:
+
+```bash
+octofriend --unchained
+```
+
+<Alert className="mb-4">
+  <InfoIcon color="#ff6600" />
+  <AlertTitle>Warning</AlertTitle>
+  <AlertDescription>
+    <p>Unchained mode skips all tool and edit confirmations. Use with caution!</p>
+  </AlertDescription>
+</Alert>
+
+## Configuration
+
+### Manual Model Configuration
+
+You can manually add models to `~/.config/octofriend/octofriend.json5`:
+
+export const configExamples = [{
+  title: "Synthetic model",
+  language: "json5",
+  source: `{
+  models: [
+    {
+      nickname: "DeepSeek V3",
+      baseUrl: "https://api.glhf.chat/openai/v1",
+      apiEnvVar: "SYNTHETIC_API_KEY",
+      model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    }
+  ]
+}`,
+}, {
+  title: "Local LLM",
+  language: "json5",
+  source: `{
+  models: [
+    {
+      nickname: "Local Llama",
+      baseUrl: "http://localhost:11434",
+      apiEnvVar: "DUMMY_KEY",
+      model: "llama3.2:latest",
+    }
+  ]
+}`,
+}];
+
+<CodeTabs className="mb-4" code={configExamples} />
+
+## Debugging
+
+Enable verbose output to see detailed error messages:
+
+```bash
+OCTO_VERBOSE=1 octofriend
+```
+## Getting Help
+
+- **Documentation**: [Octofriend GitHub](https://github.com/synthetic-lab/octofriend)
+- **Community**: Join our <DiscordLink>Discord</DiscordLink>! The Synthetic team is active daily.
+
+Happy coding with your new cephalopod friend! 🐙

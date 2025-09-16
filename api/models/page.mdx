@@ -1,0 +1,101 @@
+import { allProviderModelData, allProviderEmbeddingData } from "@/app/providers/provider";
+import { ALL_LORA_PROVIDERS } from "@/app/lora-providers/lora-provider";
+import { formatPrice } from "@/app/(sidebar)/billing/price-data-layer";
+import { formatK } from "@/app/(sidebar)/billing/money";
+import { ModelTable, } from "@/app/pricing/model-tables";
+import { flags } from "@/app/feature-flags";
+import { currentUser } from "@clerk/nextjs/server";
+import { APP_BASE_URL } from "@/app/conf";
+import { LoRATooltip } from "@/app/pricing/pricing-client";
+import { Anchor } from "@/app/components/typography";
+
+export const metadata = {
+  title: "Models",
+};
+
+export function caselessNameSort(a, b) {
+  if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+  if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+  return 0;
+}
+
+export const proxiedModels = allProviderModelData().map(model => ({
+  name: model.name,
+  formattedContextLength: formatK(model.contextLength),
+})).sort(caselessNameSort);
+
+export const multiloraBaseModels = ALL_LORA_PROVIDERS.flatMap(provider => {
+  return Object.entries(provider.baseModels).map(([ baseModel, priceDef ]) => {
+    return {
+      name: baseModel,
+      formattedContextLength: formatK(priceDef.contextLength),
+    };
+  });
+});
+
+export const embeddingModels = allProviderEmbeddingData().map(model => ({
+  name: model.name,
+  formattedContextLength: formatK(model.contextLength),
+  url: `https://huggingface.co/${model.name}`,
+})).sort(caselessNameSort);
+
+# Available Models
+
+## Always-On Models
+
+These models are included in all Standard and Pro <Anchor href={`${APP_BASE_URL}billing`}>subscriptions</Anchor>.
+Per-token pricing is also available with [usage-based billing](/usage).
+
+<ModelTable
+  className="mb-6"
+  models={proxiedModels}
+  linkToModel={true}
+  appBaseUrl={APP_BASE_URL}
+  showHfPrefix={true}
+  showCopyButton={true}
+/>
+
+## LoRA Models
+
+<LoRATooltip className="mb-4" infoColor="#00bb00" />
+
+We support LoRAs for the following base models:
+
+<ModelTable
+  className="mb-6"
+  models={multiloraBaseModels}
+  modelHeader="Base Model"
+  appBaseUrl={APP_BASE_URL}
+/>
+
+## Embedding Models
+
+Embedding models convert text into numerical vectors for search, clustering, and other applications.
+
+There's no additional charge for using embeddings, and embeddings requests don't count against your subscription rate limit.
+
+<ModelTable
+  className="mb-6"
+  models={embeddingModels}
+  linkToModel={true}
+  appBaseUrl={APP_BASE_URL}
+  showHfPrefix={true}
+  showCopyButton={true}
+/>
+
+## On-Demand Models
+
+Beyond our always-on models, you can run (almost) any model from [Hugging Face](https://huggingface.co/models?pipeline_tag=text-generation) on-demand.
+
+Simply provide the Hugging Face model name in your API request, and we'll automatically boot up a GPU cluster and run it for you.
+
+For GPU pricing details, see our <Anchor href={`${APP_BASE_URL}pricing#on-demand`}>pricing</Anchor> page.
+
+## Getting Started
+
+Ready to start using our models? Check out:
+
+- [**Getting Started Guide**](/docs/api/getting-started) - Your first API call
+- [**chat/completions**](/docs/openai/chat-completions) - Most popular endpoint for conversations
+
+Need help choosing the right model? Join our <Anchor href={`${APP_BASE_URL}discord`}>Discord community</Anchor> for recommendations!

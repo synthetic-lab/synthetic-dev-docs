@@ -1,0 +1,84 @@
+import { BaseUrlField } from "@/app/(sidebar)/user-settings/api/base-url-field";
+import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { FIVE_HOUR_STANDARD_LIMIT, FIVE_HOUR_PRO_LIMIT } from "@/app/(sidebar)/billing/subscription/tiers";
+import { APP_BASE_URL } from "@/app/conf";
+import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
+import { ANTHROPIC_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
+import { Anchor } from "@/app/components/typography";
+import { DiscordLink } from "@/app/dev/components/discord-link";
+
+export const metadata = {
+  title: "API Overview",
+};
+
+# API Overview
+
+Welcome to the Synthetic API docs!
+
+Synthetic provides an **OpenAI-compatible API** and **Anthropic-compatible API** for all models we support.
+
+## Contributing
+
+This is a living document, and we're working on making it easy for users like you to contribute.
+
+Until then, if you have any feedback or suggestions, let us know via <DiscordLink>Discord</DiscordLink> or <Anchor href="mailto:hi@synthetic.new">email</Anchor>.
+
+## API Key
+
+<div className="flex gap-2 mb-4">
+  <strong className="font-semibold shrink-0 flex items-center">Your API Key:</strong>
+  <ApiKeyField initResp={await getOrCreateApiKey()} />
+</div>
+
+## Supported Models
+
+For a list of supported models, see the [Models](/docs/api/models) page.
+
+## Supported Endpoints
+
+### OpenAI-compatible endpoints:
+
+<div className="flex gap-2 mb-4">
+  <strong className="font-semibold shrink-0 flex items-center">Base Url:</strong>
+  <BaseUrlField wrapperClassName="m-0" />
+</div>
+
+- [**`/models`**](/docs/openai/models) - List all always-on models and any recently used on-demand models.
+- [**`/chat/completions`**](/docs/openai/chat-completions) - Chat-based completions with conversation history
+- [**`/completions`**](/docs/openai/completions) - Traditional text completions
+- [**`/embeddings`**](/docs/openai/embeddings) - Transform text into vector embeddings.
+
+### Anthropic-compatible endpoints:
+
+<div className="flex gap-2 mb-4">
+  <strong className="font-semibold shrink-0 flex items-center">Base Url:</strong>
+  <BaseUrlField strToCopy={ANTHROPIC_API_BASE_URL} wrapperClassName="m-0" />
+</div>
+
+- [**`/messages`**](/docs/anthropic/messages) - Send and receive messages.
+
+## Authentication
+
+All API requests require authentication using an API key.
+
+Include your API key in the `Authorization` header:
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Rate Limits
+
+Rate limits vary by subscription tier:
+
+- **Standard**: {FIVE_HOUR_STANDARD_LIMIT} messages every 5 hours
+- **Pro**: {FIVE_HOUR_PRO_LIMIT} messages every 5 hours
+- **Usage Based**: No rate limits
+
+For more details, see our <Anchor href={`${APP_BASE_URL}pricing`}>Pricing</Anchor> page.
+
+## Getting Help
+
+- Check out our [Getting Started Guide](/docs/api/getting-started)
+- Browse the [API Reference](/docs/openai/chat-completions)
+- Join our <DiscordLink>Discord Server</DiscordLink>!

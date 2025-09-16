@@ -1,0 +1,227 @@
+import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page"
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+
+export const metadata = {
+  title: "/chat/completions",
+};
+
+# Chat Completions
+
+<Pre><Code>POST {OPENAI_API_BASE_URL}/chat/completions</Code></Pre>
+
+Create a model response for a given chat conversation.
+
+## Request Body
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `messages` | array | Yes | List of [messages](#message-object) comprising the conversation |
+| `model` | string | Yes | Model name (must be prefixed with `hf:`). See supported [Models](/docs/api/models). |
+| `frequency_penalty` | number | No | Penalty for token frequency (-2.0 to 2.0). Reduces repetition. |
+| `logit_bias` | object | No | Modify token likelihood. Maps token IDs to bias values (-100 to 100). |
+| `logprobs` | boolean/number | No | Return log probabilities of output tokens |
+| `max_completion_tokens` | number | No | Maximum tokens for completion (including reasoning tokens) |
+| `max_tokens` | number | No | Maximum number of tokens to generate |
+| `min_p` | number | No | Minimum probability for nucleus sampling |
+| `n` | number | No | Number of completion choices to generate (default: 1) |
+| `parallel_tool_calls` | boolean | No | Enable parallel function calling during tool use |
+| `presence_penalty` | number | No | Penalty for token presence (-2.0 to 2.0). Encourages new topics. |
+| `response_format` | object | No | Specify output format (JSON schema, JSON object, etc.) |
+| `seed` | number | No | Random seed for deterministic sampling |
+| `stop` | string/array | No | Stop sequence(s) |
+| `stream` | boolean | No | Stream response using server-sent events |
+| `stream_options` | object | No | Options for streaming (when `stream: true`) |
+| `temperature` | number | No | Sampling randomness (0.0-2.0). Higher = more random. |
+| `tool_choice` | string/object | No | Control tool calling: `auto`, `none`, or specific tool |
+| `tools` | array | No | List of tools the model may call |
+| `top_k` | number | No | Limit sampling to top K tokens |
+| `top_logprobs` | number | No | Number of top token probabilities to return |
+| `top_p` | number | No | Nucleus sampling threshold (0.0-1.0) |
+| `user` | string | No | Unique identifier representing your end-user |
+| `function_call` | string/object | No | (Deprecated) Control function calling: `auto`, `none`, or specific function |
+| `functions` | array | No | (Deprecated) List of functions the model may call |
+
+### Message Object
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `role` | string | Yes | Role: `system`, `user`, `assistant`, `tool`, or `function` |
+| `content` | string/array | Yes | Message content (text string or array of content parts) |
+| `name` | string | No | Name of the participant (for user/system messages) |
+| `tool_calls` | array | No | Tool calls to be executed (for assistant messages) |
+| `tool_call_id` | string | No | ID of the tool call (for tool messages) |
+| `reasoning_content` | string | No | Reasoning content for thinking models (for assistant messages) |
+| `function_call` | object | No | (Deprecated) Function call to be executed (for assistant messages) |
+
+## Example Request
+
+export const chatCompletionsExamples = [{
+  title: "Python",
+  language: "python",
+  source: `import openai
+
+client = openai.OpenAI(
+    api_key="SYNTHETIC_API_KEY",
+    base_url="${OPENAI_API_BASE_URL}"
+)
+
+completion = client.chat.completions.create(
+    model="hf:deepseek-ai/DeepSeek-V3-0324",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is the capital of France?"}
+    ],
+    max_tokens=100,
+    temperature=0.7
+)
+
+print(completion.choices[0].message.content)`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `import OpenAI from "openai";
+
+const client = new OpenAI({
+    apiKey: "SYNTHETIC_API_KEY",
+    baseURL: "${OPENAI_API_BASE_URL}"
+});
+
+const completion = await client.chat.completions.create({
+    model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "What is the capital of France?" }
+    ],
+    max_tokens: 100,
+    temperature: 0.7
+});
+
+console.log(completion.choices[0].message.content);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/chat/completions \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:deepseek-ai/DeepSeek-V3-0324",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "What is the capital of France?"
+      }
+    ],
+    "max_tokens": 100,
+    "temperature": 0.7
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={chatCompletionsExamples} />
+
+## Example Response
+
+```json
+{
+  "id": "296a8fcb-181d-46d4-ad9b-b380befa9a07",
+  "object": "chat.completion",
+  "created": 1757644754,
+  "model": "accounts/fireworks/models/deepseek-v3-0324",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The capital of France is **Paris**. \n\nParis is known for its rich history, iconic landmarks like the Eiffel Tower and the Louvre Museum, and its cultural significance as a global hub for art, fashion, and cuisine. \n\nLet me know if you'd like more details!"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 16,
+    "total_tokens": 74,
+    "completion_tokens": 58
+  }
+}
+```
+
+## Streaming
+
+When `stream: true` is set, the response will be a series of Server-Sent Events:
+
+export const streamingExamples = [{
+  title: "Python",
+  language: "python",
+  source: `completion = client.chat.completions.create(
+    model="hf:deepseek-ai/DeepSeek-V3-0324",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Tell me a short story."}
+    ],
+    max_tokens=100,
+    stream=True
+)
+
+for chunk in completion:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end='', flush=True)`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `const completion = await client.chat.completions.create({
+    model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "Tell me a short story." }
+    ],
+    max_tokens: 100,
+    stream: true
+});
+
+for await (const chunk of completion) {
+    if (chunk.choices[0].delta.content) {
+        process.stdout.write(chunk.choices[0].delta.content);
+    }
+}`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/chat/completions \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:deepseek-ai/DeepSeek-V3-0324",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Tell me a short story."
+      }
+    ],
+    "max_tokens": 100,
+    "stream": true
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={streamingExamples} />
+
+### Streaming Response
+
+```
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"index":0,"delta":{"role":"assistant","content":"Once"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"index":0,"delta":{"content":" upon"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"index":0,"delta":{"content":" a"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"index":0,"delta":{},"finish_reason":"length"}],"usage":{"prompt_tokens":20,"total_tokens":120,"completion_tokens":100}}
+
+data: [DONE]
+```

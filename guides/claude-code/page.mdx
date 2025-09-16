@@ -1,0 +1,71 @@
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { InfoIcon } from "lucide-react";
+
+export const metadata = {
+  title: "Claude Code",
+};
+
+# Claude Code with Synthetic
+
+With Synthetic's native Anthropic API support, you can now use Claude Code with any [model we support](/docs/api/models).
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Native Anthropic API Support</AlertTitle>
+  <AlertDescription>
+    <p>Synthetic now provides native Anthropic API compatibility, allowing Claude Code to work seamlessly without additional software!</p>
+  </AlertDescription>
+</Alert>
+
+## Installation
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+## Configuration
+
+### Environment Variables
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Persistent Configuration</AlertTitle>
+  <AlertDescription>
+    <p>Add these values to your `~/.bashrc` or `~/.zshrc` to persist changes in new sessions.</p>
+  </AlertDescription>
+</Alert>
+
+```bash
+# Server configuration
+export ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic  # What server to talk to instead of the default
+export ANTHROPIC_AUTH_TOKEN=\${YOUR_SYNTHETIC_API_KEY}  # Auth key
+
+# Model configuration
+export ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.5  # The model to use for opus plan mode
+export ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.5  # The model to use for most tasks
+export ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.5  # Primarily used for summarization
+export CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5  # When starting subagents, what model to use
+
+# Privacy configuration
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1  # Don't send telemetry data
+```
+
+### Creating a Convenient Alias
+
+For easier access, create a `synclaude` alias that launches Claude Code with Synthetic configuration:
+
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+alias synclaude='ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic \\
+  ANTHROPIC_AUTH_TOKEN=\${YOUR_SYNTHETIC_API_KEY} \\
+  ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.5 \\
+  ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.5 \\
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.5 \\
+  CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5 \\
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \\
+  claude'
+
+# Then use: synclaude
+```
