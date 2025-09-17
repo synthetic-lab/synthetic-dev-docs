@@ -1,0 +1,188 @@
+import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page"
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+import { embeddingModels } from "@/app/dev/docs/api/models/page.mdx";
+import { ModelTable } from "@/app/pricing/model-tables";
+
+export const metadata = {
+  title: "/embeddings",
+};
+
+# Embeddings
+
+<Pre><Code>POST {OPENAI_API_BASE_URL}/embeddings</Code></Pre>
+
+Create a vector representation of a given input for similarity, retrieval, clustering, and other applications.
+
+## Supported Embeddings Models
+
+<ModelTable
+  className="mb-6"
+  models={embeddingModels}
+  linkToModel={true}
+  showHfPrefix={true}
+  showCopyButton={true}
+/>
+
+## Request Body
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `model` | string | Yes | Model ID (must be prefixed with `hf:`) |
+| `input` | string/array | Yes | Input text to embed, encoded as a string or array of strings |
+| `dimensions` | number | No | Number of dimensions the resulting output embeddings should have |
+
+## Example Request
+
+export const embeddingsExamples = [{
+  title: "Python",
+  language: "python",
+  source: `import openai
+
+client = openai.OpenAI(
+    api_key="SYNTHETIC_API_KEY",
+    base_url="${OPENAI_API_BASE_URL}"
+)
+
+response = client.embeddings.create(
+    model="hf:nomic-ai/nomic-embed-text-v1.5",
+    input="The quick brown fox jumps over the lazy dog."
+)
+
+embedding = response.data[0].embedding
+print(f"Embedding dimensions: {len(embedding)}")`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `import OpenAI from "openai";
+
+const client = new OpenAI({
+    apiKey: "SYNTHETIC_API_KEY",
+    baseURL: "${OPENAI_API_BASE_URL}"
+});
+
+const response = await client.embeddings.create({
+    model: "hf:nomic-ai/nomic-embed-text-v1.5",
+    input: "The quick brown fox jumps over the lazy dog."
+});
+
+const embedding = response.data[0].embedding;
+console.log(\`Embedding dimensions: \${embedding.length}\`);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/embeddings \\
+  -H "Authorization: Bearer \${SYNTHETIC_API_KEY}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:nomic-ai/nomic-embed-text-v1.5",
+    "input": "The quick brown fox jumps over the lazy dog."
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={embeddingsExamples} />
+
+## Example Response
+
+```json
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "embedding",
+      "index": 0,
+      "embedding": [
+        0.0023064255,
+        -0.009327292,
+        -0.0028842222,
+        "... (768 more values)"
+      ]
+    }
+  ],
+  "model": "hf:nomic-ai/nomic-embed-text-v1.5",
+  "usage": {
+    "prompt_tokens": 8,
+    "total_tokens": 8
+  }
+}
+```
+
+## Multiple Inputs
+
+You can embed multiple texts in a single request:
+
+export const multipleInputsExamples = [{
+  title: "Python",
+  language: "python",
+  source: `response = client.embeddings.create(
+    model="hf:nomic-ai/nomic-embed-text-v1.5",
+    input=[
+        "The quick brown fox jumps over the lazy dog.",
+        "Pack my box with five dozen liquor jugs.",
+        "How vexingly quick daft zebras jump!"
+    ]
+)
+
+embeddings = [data.embedding for data in response.data]
+print(f"Created {len(embeddings)} embeddings")`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `const response = await client.embeddings.create({
+    model: "hf:nomic-ai/nomic-embed-text-v1.5",
+    input: [
+        "The quick brown fox jumps over the lazy dog.",
+        "Pack my box with five dozen liquor jugs.",
+        "How vexingly quick daft zebras jump!"
+    ]
+});
+
+const embeddings = response.data.map(d => d.embedding);
+console.log(\`Created \${embeddings.length} embeddings\`);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/embeddings \\
+  -H "Authorization: Bearer \${SYNTHETIC_API_KEY}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:nomic-ai/nomic-embed-text-v1.5",
+    "input": [
+      "The quick brown fox jumps over the lazy dog.",
+      "Pack my box with five dozen liquor jugs.",
+      "How vexingly quick daft zebras jump!"
+    ]
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={multipleInputsExamples} />
+
+### Multiple Inputs Response
+
+```json
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "embedding",
+      "index": 0,
+      "embedding": [0.0023064255, -0.009327292, "..."]
+    },
+    {
+      "object": "embedding", 
+      "index": 1,
+      "embedding": [0.0019234521, -0.007891234, "..."]
+    },
+    {
+      "object": "embedding",
+      "index": 2, 
+      "embedding": [0.0021456789, -0.008765432, "..."]
+    }
+  ],
+  "model": "hf:nomic-ai/nomic-embed-text-v1.5",
+  "usage": {
+    "prompt_tokens": 24,
+    "total_tokens": 24
+  }
+}
+```

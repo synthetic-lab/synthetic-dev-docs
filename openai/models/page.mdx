@@ -1,0 +1,90 @@
+import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page"
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+import { ModelsTipAlert } from "@/app/dev/components/models-tip-alert";
+
+export const metadata = {
+  title: "/models",
+};
+
+# Models
+
+<Pre><Code>GET {OPENAI_API_BASE_URL}/models</Code></Pre>
+
+List and retrieve information about available models.
+
+<ModelsTipAlert />
+
+## Example Request
+
+export const listModelsExamples = [{
+  title: "Python",
+  language: "python",
+  source: `import openai
+
+client = openai.OpenAI(
+    api_key="SYNTHETIC_API_KEY",
+    base_url="${OPENAI_API_BASE_URL}"
+)
+
+# List all available models
+models = client.models.list()
+print(models)`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `import OpenAI from "openai";
+
+const client = new OpenAI({
+    apiKey: "SYNTHETIC_API_KEY",
+    baseURL: "${OPENAI_API_BASE_URL}"
+});
+
+// List all available models
+const models = await client.models.list();
+console.log(models);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl ${OPENAI_API_BASE_URL}/models \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}"`,
+}];
+
+<CodeTabs className="mb-4" code={listModelsExamples} />
+
+## Example Response
+
+```json
+{
+  "data": [
+    {
+      "id": "hf:deepseek-ai/DeepSeek-V3.1",
+      "object": "model"
+    },
+    {
+      "id": "hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "object": "model"
+    },
+    {
+      "id": "hf:zai-org/GLM-4.5",
+      "object": "model"
+    },
+    {
+      "id": "hf:openai/gpt-oss-120b",
+      "object": "model"
+    },
+    {
+      "id": "hf:moonshotai/Kimi-K2-Instruct",
+      "object": "model"
+    },
+  ]
+}
+```
+
+## Model Naming Convention
+
+All model IDs follow the pattern: `hf:{owner}/{model-name}`
+
+- **hf:** - Required prefix indicating a Hugging Face model
+- **owner** - The organization or user who published the model
+- **model-name** - The specific model name and version

@@ -1,0 +1,221 @@
+import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page"
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+
+export const metadata = {
+  title: "/completions",
+};
+
+# Completions
+
+<Pre><Code>POST {OPENAI_API_BASE_URL}/completions</Code></Pre>
+
+Create a completion for a provided prompt and parameters.
+
+## Request Body
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `model` | string | Yes | Model name (must be prefixed with `hf:`). See supported [Models](/docs/api/models). |
+| `prompt` | string/array | Yes | Text prompt(s) to generate completions for. Can be a string, array of strings, array of numbers, or array of arrays of numbers. |
+| `echo` | boolean | No | Echo back the prompt in addition to completion |
+| `frequency_penalty` | number | No | Penalty for token frequency (-2.0 to 2.0). Reduces repetition. |
+| `logit_bias` | object | No | Modify token likelihood. Maps token IDs to bias values (-100 to 100). |
+| `logprobs` | number | No | Include log probabilities on most likely tokens |
+| `max_completion_tokens` | number | No | Maximum tokens for completion |
+| `max_tokens` | number | No | Maximum number of tokens to generate |
+| `min_p` | number | No | Minimum probability for nucleus sampling |
+| `n` | number | No | Number of completions to generate (default: 1) |
+| `presence_penalty` | number | No | Penalty for token presence (-2.0 to 2.0). Encourages new topics. |
+| `stop` | string/array | No | Stop sequence(s) |
+| `stream` | boolean | No | Stream response using server-sent events |
+| `stream_options` | object | No | Options for streaming (when `stream: true`) |
+| `temperature` | number | No | Sampling randomness (0.0-2.0). Higher = more random. |
+| `top_k` | number | No | Limit sampling to top K tokens |
+| `top_p` | number | No | Nucleus sampling threshold (0.0-1.0) |
+| `user` | string | No | Unique identifier representing your end-user |
+
+## Example Request
+
+export const completionsExamples = [{
+  title: "Python",
+  language: "python",
+  source: `import openai
+
+client = openai.OpenAI(
+    api_key="SYNTHETIC_API_KEY",
+    base_url="${OPENAI_API_BASE_URL}"
+)
+
+completion = client.completions.create(
+    model="hf:deepseek-ai/DeepSeek-V3-0324",
+    prompt="The future of artificial intelligence is",
+    max_tokens=50,
+    temperature=0.7,
+    stop=["\\n"]
+)
+
+print(completion.choices[0].text)`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `import OpenAI from "openai";
+
+const client = new OpenAI({
+    apiKey: "SYNTHETIC_API_KEY",
+    baseURL: "${OPENAI_API_BASE_URL}"
+});
+
+const completion = await client.completions.create({
+    model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    prompt: "The future of artificial intelligence is",
+    max_tokens: 50,
+    temperature: 0.7,
+    stop: ["\n"]
+});
+
+console.log(completion.choices[0].text);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/completions \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:deepseek-ai/DeepSeek-V3-0324",
+    "prompt": "The future of artificial intelligence is",
+    "max_tokens": 50,
+    "temperature": 0.7,
+    "stop": ["\n"]
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={completionsExamples} />
+
+## Example Response
+
+```json
+{
+  "id": "49fb0537-dafc-441c-ad42-b4c4aa2f5193",
+  "object": "text_completion",
+  "created": 1757645512,
+  "model": "accounts/fireworks/models/deepseek-v3-0324",
+  "choices": [
+    {
+      "index": 0,
+      "text": " undeniably bright and holds the potential to revolutionize every aspect of our lives. As we stand on the cusp of technological advancements, AI is poised to become more sophisticated, integrated, and ethical. From transforming industries to enhancing daily conveniences, AI’",
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 7,
+    "total_tokens": 57,
+    "completion_tokens": 50
+  }
+}
+```
+
+## Multiple Prompts
+
+You can send multiple prompts in a single request:
+
+export const multiplePromptsExamples = [{
+  title: "Python",
+  language: "python",
+  source: `completion = client.completions.create(
+    model="hf:deepseek-ai/DeepSeek-V3-0324",
+    prompt=[
+        "The capital of France is",
+        "The largest planet in our solar system is"
+    ],
+    max_tokens=10
+)`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `const completion = await client.completions.create({
+    model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    prompt: [
+        "The capital of France is",
+        "The largest planet in our solar system is"
+    ],
+    max_tokens: 10
+});`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/completions \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:deepseek-ai/DeepSeek-V3-0324",
+    "prompt": [
+      "The capital of France is",
+      "The largest planet in our solar system is"
+    ],
+    "max_tokens": 10
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={multiplePromptsExamples} />
+
+## Streaming
+
+When `stream: true` is set, the response will be a series of Server-Sent Events:
+
+export const streamingExamples = [{
+  title: "Python",
+  language: "python",
+  source: `completion = client.completions.create(
+    model="hf:deepseek-ai/DeepSeek-V3-0324",
+    prompt="Once upon a time",
+    max_tokens=50,
+    stream=True
+)
+
+for chunk in completion:
+    if chunk.choices[0].text:
+        print(chunk.choices[0].text, end='', flush=True)`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `const completion = await client.completions.create({
+    model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    prompt: "Once upon a time",
+    max_tokens: 50,
+    stream: true
+});
+
+for await (const chunk of completion) {
+    if (chunk.choices[0].text) {
+        process.stdout.write(chunk.choices[0].text);
+    }
+}`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${OPENAI_API_BASE_URL}/completions \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:deepseek-ai/DeepSeek-V3-0324",
+    "prompt": "Once upon a time",
+    "max_tokens": 50,
+    "stream": true
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={streamingExamples} />
+
+### Streaming Response
+
+```
+data: {"id":"cmpl-abc123","object":"text_completion","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"text":" in","index":0,"finish_reason":null}]}
+
+data: {"id":"cmpl-abc123","object":"text_completion","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"text":" a","index":0,"finish_reason":null}]}
+
+data: {"id":"cmpl-abc123","object":"text_completion","created":1757644754,"model":"accounts/fireworks/models/deepseek-v3-0324","choices":[{"text":" far","index":0,"finish_reason":"length"}],"usage":{"prompt_tokens":5,"total_tokens":55,"completion_tokens":50}}]}
+
+data: [DONE]
+```

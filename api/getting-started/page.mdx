@@ -1,0 +1,229 @@
+import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { InfoIcon } from "lucide-react";
+import CodeTabs from "@/app/components/ui/code-tabs";
+import { APP_BASE_URL } from "@/app/conf";
+import { Anchor } from "@/app/components/typography";
+import { ModelsTipAlert } from "@/app/dev/components/models-tip-alert";
+import { DiscordLink } from "@/app/dev/components/discord-link";
+
+export const metadata = {
+  title: "Getting Started",
+};
+
+# Getting Started
+
+This guide will walk you through making your first API call to Synthetic in just a few minutes.
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Tip</AlertTitle>
+  <AlertDescription>
+    <p>Check out our [Guides](/docs/guides) for step-by-step tutorials on setting up various frontends and development tools with Synthetic.</p>
+  </AlertDescription>
+</Alert>
+
+## Step 1: Get Your API Key
+
+<div className="flex gap-2 mb-4">
+  <strong className="font-semibold shrink-0 flex items-center">Your API Key:</strong>
+  <ApiKeyField initResp={await getOrCreateApiKey()} />
+</div>
+
+## Step 2: Install an OpenAI Client Library
+
+Since Synthetic is OpenAI-compatible, you can use any OpenAI client library:
+
+<CodeTabs
+  code={[{
+    title: "Python",
+    language: "bash",
+    source: "pip install openai",
+  }, {
+    title: "Node.js",
+    language: "bash",
+    source: "npm install openai",
+  }]}
+/>
+
+### Other Languages
+Synthetic works with OpenAI client libraries in any language including:
+- Go: `go-openai`
+- Rust: `async-openai`
+- Ruby: `ruby-openai`
+- PHP: `openai-php`
+- Java: `openai-java`
+
+## Step 3: Configure Your Client
+
+Set up your client to point to Synthetic's API:
+
+<CodeTabs
+  code={[{
+    title: "Python",
+    language: "python",
+    source: `import os
+import openai
+
+client = openai.OpenAI(
+    api_key=os.environ.get("SYNTHETIC_API_KEY"),
+    base_url="https://api.glhf.chat/v1/",
+)`,
+  }, {
+    title: "TypeScript",
+    language: "typescript",
+    source: `import OpenAI from "openai";
+
+const client = new OpenAI({
+    apiKey: process.env.SYNTHETIC_API_KEY,
+    baseURL: "https://api.glhf.chat/v1/",
+});`,
+  }]}
+/>
+
+## Step 4: Make Your First API Call
+
+### Chat Completions
+
+<CodeTabs
+  code={[{
+    title: "Python",
+    language: "python",
+    source: `completion = client.chat.completions.create(
+    model="hf:zai-org/GLM-4.5",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Explain quantum computing in simple terms."}
+    ]
+)
+
+print(completion.choices[0].message.content)`,
+  }, {
+    title: "TypeScript",
+    language: "typescript",
+    source: `const completion = await client.chat.completions.create({
+    model: "hf:zai-org/GLM-4.5",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "Explain quantum computing in simple terms." }
+    ],
+});
+
+console.log(completion.choices[0].message.content);`,
+  }, {
+    title: "curl",
+    language: "bash",
+    source: `curl -X POST https://api.glhf.chat/v1/chat/completions \\
+  -H "Authorization: Bearer \${SYNTHETIC_API_KEY}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "hf:zai-org/GLM-4.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Explain quantum computing in simple terms."
+      }
+    ]
+  }'`,
+  }]}
+/>
+
+### Streaming Responses
+For long responses, streaming provides a better user experience:
+
+<CodeTabs
+  code={[{
+    title: "Python",
+    language: "python",
+    source: `completion = client.chat.completions.create(
+    model="hf:zai-org/GLM-4.5",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Write a detailed explanation of machine learning."}
+    ],
+    stream=True
+)
+
+for chunk in completion:
+    if chunk.choices[0].delta.content is not None:
+        print(chunk.choices[0].delta.content, end='', flush=True)`,
+  }, {
+    title: "TypeScript",
+    language: "typescript",
+    source: `const completion = await client.chat.completions.create({
+    model: "hf:zai-org/GLM-4.5",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "Write a detailed explanation of machine learning." }
+    ],
+    stream: true,
+});
+
+for await (const chunk of completion) {
+    if (chunk.choices[0].delta.content) {
+        process.stdout.write(chunk.choices[0].delta.content);
+    }
+}`,
+  }]}
+/>
+
+## Step 5: Choose Your Model
+
+Explore available models using the `/models` endpoint:
+
+<CodeTabs
+  code={[{
+    title: "Python",
+    language: "python",
+    source: `models = client.models.list()
+for model in models.data:
+    print(model.id)`,
+  }, {
+    title: "TypeScript",
+    language: "typescript",
+    source: `const models = await client.models.list();
+models.data.forEach(model => {
+    console.log(model.id);
+});`,
+  }, {
+    title: "curl",
+    language: "bash",
+    source: `curl https://api.glhf.chat/v1/models \\
+  -H "Authorization: Bearer \${SYNTHETIC_API_KEY}"`,
+  }]}
+/>
+
+<ModelsTipAlert />
+
+### Error Handling
+```python
+try:
+    completion = client.chat.completions.create(
+        model="hf:zai-org/GLM-4.5",
+        messages=[{"role": "user", "content": "Hello!"}]
+    )
+except openai.APIError as e:
+    print(f"API error: {e}")
+except openai.RateLimitError as e:
+    print(f"Rate limit exceeded: {e}")
+```
+
+## Next Steps
+
+- **Explore the API Reference**: Check out detailed documentation for [/chat/completions](/docs/openai/chat-completions) and [/messages](/docs/anthropic/messages).
+- **Integration Guides**: See how to integrate with tools like [Octofriend](/docs/guides/octofriend), [Claude Code](/docs/guides/claude-code), and more!
+- **Monitor Usage**: Track your API usage on your <Anchor href={`${APP_BASE_URL}billing/subscriptions`}>Subscription</Anchor> page.
+
+## Need Help?
+
+If you run into issues:
+1. Check that your API key is correctly set
+2. Verify the model name includes the `hf:` prefix
+3. Ask for help on our <DiscordLink>Discord Server</DiscordLink>!
+
+Happy coding! 🚀
