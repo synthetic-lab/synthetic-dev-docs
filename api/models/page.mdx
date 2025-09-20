@@ -8,6 +8,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { APP_BASE_URL } from "@/app/conf";
 import { LoRATooltip } from "@/app/pricing/pricing-client";
 import { Anchor } from "@/app/components/typography";
+import { SubdomainLink } from "@/app/dev/components/subdomain-link";
 
 export const metadata = {
   title: "Models",
@@ -43,8 +44,8 @@ export const embeddingModels = allProviderEmbeddingData().map(model => ({
 
 ## Always-On Models
 
-These models are included in all Standard and Pro <Anchor href={`${APP_BASE_URL}billing`}>subscriptions</Anchor>.
-Per-token pricing is also available with [usage-based billing](/usage).
+These models are included in all Standard and Pro <SubdomainLink href="/billing/subscription">subscriptions</SubdomainLink>.
+Per-token pricing is also available with <SubdomainLink href="/billing">usage-based billing</SubdomainLink>.
 
 <ModelTable
   className="mb-6"
@@ -89,7 +90,7 @@ Beyond our always-on models, you can run (almost) any model from [Hugging Face](
 
 Simply provide the Hugging Face model name in your API request, and we'll automatically boot up a GPU cluster and run it for you.
 
-For GPU pricing details, see our <Anchor href={`${APP_BASE_URL}pricing#on-demand`}>pricing</Anchor> page.
+For GPU pricing details, see our <SubdomainLink href="/pricing#on-demand">pricing</SubdomainLink> page.
 
 ## Getting Started
 
@@ -98,4 +99,4 @@ Ready to start using our models? Check out:
 - [**Getting Started Guide**](/docs/api/getting-started) - Your first API call
 - [**chat/completions**](/docs/openai/chat-completions) - Most popular endpoint for conversations
 
-Need help choosing the right model? Join our <Anchor href={`${APP_BASE_URL}discord`}>Discord community</Anchor> for recommendations!
+Need help choosing the right model? Join our <SubdomainLink href="/discord">Discord community</SubdomainLink> for recommendations!

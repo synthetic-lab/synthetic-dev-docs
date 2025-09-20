@@ -1,11 +1,10 @@
 import { BaseUrlField } from "@/app/(sidebar)/user-settings/api/base-url-field";
 import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
 import { FIVE_HOUR_STANDARD_LIMIT, FIVE_HOUR_PRO_LIMIT } from "@/app/(sidebar)/billing/subscription/tiers";
-import { APP_BASE_URL } from "@/app/conf";
 import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 import { ANTHROPIC_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
 import { Anchor } from "@/app/components/typography";
-import { DiscordLink } from "@/app/dev/components/discord-link";
+import { SubdomainLink } from "@/app/dev/components/subdomain-link";
 
 export const metadata = {
   title: "API Overview",
@@ -21,7 +20,7 @@ Synthetic provides an **OpenAI-compatible API** and **Anthropic-compatible API**
 
 This is a living document, and we're working on making it easy for users like you to contribute.
 
-Until then, if you have any feedback or suggestions, let us know via <DiscordLink>Discord</DiscordLink> or <Anchor href="mailto:hi@synthetic.new">email</Anchor>.
+Until then, if you have any feedback or suggestions, let us know via <SubdomainLink href="/discord">Discord</SubdomainLink> or <Anchor href="mailto:hi@synthetic.new">email</Anchor>.
 
 ## API Key
 
@@ -65,10 +64,10 @@ Rate limits vary by subscription tier:
 - **Pro**: {FIVE_HOUR_PRO_LIMIT} messages every 5 hours
 - **Usage Based**: No rate limits
 
-For more details, see our <Anchor href={`${APP_BASE_URL}pricing`}>Pricing</Anchor> page.
+For more details, see our <SubdomainLink href="/pricing">Pricing</SubdomainLink> page.
 
 ## Getting Help
 
 - Check out our [Getting Started Guide](/docs/api/getting-started)
 - Browse the [API Reference](/docs/openai/chat-completions)
-- Join our <DiscordLink>Discord Server</DiscordLink>!
+- Join our <SubdomainLink href="/discord">Discord Server</SubdomainLink>!

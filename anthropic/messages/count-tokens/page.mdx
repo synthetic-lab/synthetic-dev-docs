@@ -1,0 +1,102 @@
+import { ANTHROPIC_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { InfoIcon } from "lucide-react";
+import { SubdomainLink } from "@/app/dev/components/subdomain-link";
+import MessageSchemas from "../../message-schemas.mdx";
+
+export const metadata = {
+  title: "/messages/count_tokens",
+};
+
+# Count Tokens API
+
+<Pre><Code>POST {ANTHROPIC_API_BASE_URL}/messages/count_tokens</Code></Pre>
+
+Count the number of input tokens in a set of messages before sending them to a model.
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Subscriber Feature</AlertTitle>
+  <AlertDescription>
+    <p>This endpoint is currently available to <SubdomainLink href="/billing/subscription">subscribers</SubdomainLink> only.</p>
+  </AlertDescription>
+</Alert>
+
+## Request Body
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `model` | string | Yes | Model name (must be prefixed with `hf:`). See supported [Models](/docs/api/models). |
+| `messages` | array | Yes | Array of [message](#message-object) objects to count tokens for |
+
+<MessageSchemas />
+
+## Example Usage
+
+export const countTokensExamples = [{
+  title: "Python",
+  language: "python",
+  source: `import anthropic
+
+client = anthropic.Anthropic(
+    api_key="SYNTHETIC_API_KEY",
+    base_url="${ANTHROPIC_API_BASE_URL}"
+)
+
+# Count tokens for a simple text message
+response = client.messages.count_tokens(
+    model="hf:deepseek-ai/DeepSeek-V3-0324",
+    messages=[
+        {"role": "user", "content": "What is the capital of France?"}
+    ]
+)
+
+print(f"Input tokens: {response.input_tokens}")`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+    apiKey: "SYNTHETIC_API_KEY",
+    baseURL: "${ANTHROPIC_API_BASE_URL}"
+});
+
+// Count tokens for a simple text message
+const response = await client.messages.countTokens({
+    model: "hf:deepseek-ai/DeepSeek-V3-0324",
+    messages: [
+        { role: "user", content: "What is the capital of France?" }
+    ]
+});
+
+console.log(\`Input tokens: \${response.input_tokens}\`);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl -X POST ${ANTHROPIC_API_BASE_URL}/messages/count_tokens \\
+  -H "Authorization: Bearer \${SYNTHETIC_API_KEY}" \\
+  -H "Content-Type: application/json" \\
+  -H "anthropic-version: 2023-06-01" \\
+  -d '{
+    "model": "hf:deepseek-ai/DeepSeek-V3-0324",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the capital of France?"
+      }
+    ]
+  }'`,
+}];
+
+<CodeTabs className="mb-4" code={countTokensExamples} />
+
+## Example Response
+
+```json
+{
+  "input_tokens": 20
+}
+```

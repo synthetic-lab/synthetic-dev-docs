@@ -3,10 +3,9 @@ import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { InfoIcon } from "lucide-react";
 import CodeTabs from "@/app/components/ui/code-tabs";
-import { APP_BASE_URL } from "@/app/conf";
 import { Anchor } from "@/app/components/typography";
 import { ModelsTipAlert } from "@/app/dev/components/models-tip-alert";
-import { DiscordLink } from "@/app/dev/components/discord-link";
+import { SubdomainLink } from "@/app/dev/components/subdomain-link";
 
 export const metadata = {
   title: "Getting Started",
@@ -20,7 +19,7 @@ This guide will walk you through making your first API call to Synthetic in just
   <InfoIcon color="#00bb00" />
   <AlertTitle>Tip</AlertTitle>
   <AlertDescription>
-    <p>Check out our [Guides](/docs/guides) for step-by-step tutorials on setting up various frontends and development tools with Synthetic.</p>
+    <p>Check out our **Guides** for step-by-step tutorials on setting up various frontends and development tools with Synthetic.</p>
   </AlertDescription>
 </Alert>
 
@@ -217,13 +216,13 @@ except openai.RateLimitError as e:
 
 - **Explore the API Reference**: Check out detailed documentation for [/chat/completions](/docs/openai/chat-completions) and [/messages](/docs/anthropic/messages).
 - **Integration Guides**: See how to integrate with tools like [Octofriend](/docs/guides/octofriend), [Claude Code](/docs/guides/claude-code), and more!
-- **Monitor Usage**: Track your API usage on your <Anchor href={`${APP_BASE_URL}billing/subscriptions`}>Subscription</Anchor> page.
+- **Monitor Usage**: Track your API usage on your <SubdomainLink href="/billing/subscriptions">Subscription</SubdomainLink> page.
 
 ## Need Help?
 
 If you run into issues:
 1. Check that your API key is correctly set
 2. Verify the model name includes the `hf:` prefix
-3. Ask for help on our <DiscordLink>Discord Server</DiscordLink>!
+3. Ask for help on our <SubdomainLink href="/discord">Discord Server</SubdomainLink>!
 
 Happy coding! 🚀
