@@ -52,20 +52,22 @@ export CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5  # When starting subagents,
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1  # Don't send telemetry data
 ```
 
-### Creating a Convenient Alias
+### Creating a Convenient Function
 
-For easier access, create a `synclaude` alias that launches Claude Code with Synthetic configuration:
+For easier access, create a `synclaude` function that launches Claude Code with Synthetic configuration:
 
 ```bash
 # Add to ~/.bashrc or ~/.zshrc
-alias synclaude='ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic \\
-  ANTHROPIC_AUTH_TOKEN=\${YOUR_SYNTHETIC_API_KEY} \\
-  ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.5 \\
-  ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.5 \\
-  ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.5 \\
-  CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5 \\
-  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \\
-  claude'
+synclaude() {
+  ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic \
+  ANTHROPIC_AUTH_TOKEN=${YOUR_SYNTHETIC_API_KEY} \
+  ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.5 \
+  ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.5 \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.5 \
+  CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5 \
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+  claude "$@"
+}
 
 # Then use: synclaude
 ```
