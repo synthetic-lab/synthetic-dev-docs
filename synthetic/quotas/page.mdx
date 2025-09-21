@@ -1,5 +1,7 @@
-import { Pre, Code } from "@/app/components/typography"
+import { Pre, Code, Anchor } from "@/app/components/typography"
 import CodeTabs from "@/app/components/ui/code-tabs"
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert"
+import { InfoIcon } from "lucide-react"
 
 export const metadata = {
   title: "/quotas",
@@ -10,6 +12,14 @@ export const metadata = {
 <Pre><Code>GET https://api.synthetic.new/v2/quotas</Code></Pre>
 
 Retrieve information about your API usage quotas and limits.
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>The Synthetic API is still under development.</AlertTitle>
+  <AlertDescription>
+    <p>If there is more data you would like to see and access, please <Anchor href="mailto:hi@synthetic.new">let us know</Anchor>!</p>
+  </AlertDescription>
+</Alert>
 
 ## Example Request
 
