@@ -8,7 +8,9 @@ import { currentUser } from "@clerk/nextjs/server";
 import { APP_BASE_URL } from "@/app/conf";
 import { LoRATooltip } from "@/app/pricing/pricing-client";
 import { Anchor } from "@/app/components/typography";
-import { SubdomainLink } from "@/app/dev/components/subdomain-link";
+import { SubdomainLink } from "@/app/components/subdomain-link";
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { InfoIcon } from "lucide-react";
 
 export const metadata = {
   title: "Models",
@@ -41,6 +43,14 @@ export const embeddingModels = allProviderEmbeddingData().map(model => ({
 })).sort(caselessNameSort);
 
 # Available Models
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Subscriptions</AlertTitle>
+  <AlertDescription>
+    <p><strong>Always-On</strong>, <strong>LoRA</strong>, and <strong>Embeddings</strong> models are included in every <SubdomainLink href="/billing/subscription"><strong>subscription</strong></SubdomainLink>.</p>
+  </AlertDescription>
+</Alert>
 
 ## Always-On Models
 

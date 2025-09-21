@@ -40,13 +40,13 @@ export const embeddingsExamples = [{
   source: `import openai
 
 client = openai.OpenAI(
-    api_key="SYNTHETIC_API_KEY",
-    base_url="${OPENAI_API_BASE_URL}"
+  api_key="SYNTHETIC_API_KEY",
+  base_url="${OPENAI_API_BASE_URL}"
 )
 
 response = client.embeddings.create(
-    model="hf:nomic-ai/nomic-embed-text-v1.5",
-    input="The quick brown fox jumps over the lazy dog."
+  model="hf:nomic-ai/nomic-embed-text-v1.5",
+  input="The quick brown fox jumps over the lazy dog."
 )
 
 embedding = response.data[0].embedding
@@ -57,13 +57,13 @@ print(f"Embedding dimensions: {len(embedding)}")`,
   source: `import OpenAI from "openai";
 
 const client = new OpenAI({
-    apiKey: "SYNTHETIC_API_KEY",
-    baseURL: "${OPENAI_API_BASE_URL}"
+  apiKey: "SYNTHETIC_API_KEY",
+  baseURL: "${OPENAI_API_BASE_URL}"
 });
 
 const response = await client.embeddings.create({
-    model: "hf:nomic-ai/nomic-embed-text-v1.5",
-    input: "The quick brown fox jumps over the lazy dog."
+  model: "hf:nomic-ai/nomic-embed-text-v1.5",
+  input: "The quick brown fox jumps over the lazy dog."
 });
 
 const embedding = response.data[0].embedding;
@@ -115,12 +115,12 @@ export const multipleInputsExamples = [{
   title: "Python",
   language: "python",
   source: `response = client.embeddings.create(
-    model="hf:nomic-ai/nomic-embed-text-v1.5",
-    input=[
-        "The quick brown fox jumps over the lazy dog.",
-        "Pack my box with five dozen liquor jugs.",
-        "How vexingly quick daft zebras jump!"
-    ]
+  model="hf:nomic-ai/nomic-embed-text-v1.5",
+  input=[
+    "The quick brown fox jumps over the lazy dog.",
+    "Pack my box with five dozen liquor jugs.",
+    "How vexingly quick daft zebras jump!"
+  ]
 )
 
 embeddings = [data.embedding for data in response.data]
@@ -129,12 +129,12 @@ print(f"Created {len(embeddings)} embeddings")`,
   title: "TypeScript",
   language: "typescript",
   source: `const response = await client.embeddings.create({
-    model: "hf:nomic-ai/nomic-embed-text-v1.5",
-    input: [
-        "The quick brown fox jumps over the lazy dog.",
-        "Pack my box with five dozen liquor jugs.",
-        "How vexingly quick daft zebras jump!"
-    ]
+  model: "hf:nomic-ai/nomic-embed-text-v1.5",
+  input: [
+    "The quick brown fox jumps over the lazy dog.",
+    "Pack my box with five dozen liquor jugs.",
+    "How vexingly quick daft zebras jump!"
+  ]
 });
 
 const embeddings = response.data.map(d => d.embedding);

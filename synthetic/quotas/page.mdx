@@ -1,0 +1,61 @@
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+
+export const metadata = {
+  title: "/quotas",
+};
+
+# Quotas
+
+<Pre><Code>GET https://api.synthetic.new/v2/quotas</Code></Pre>
+
+Retrieve information about your API usage quotas and limits.
+
+## Example Request
+
+export const quotasExamples = [{
+  title: "Python",
+  language: "python",
+  source: `import requests
+
+headers = {
+  "Authorization": "Bearer SYNTHETIC_API_KEY"
+}
+
+response = requests.get(
+  "https://api.synthetic.new/v2/quotas",
+  headers=headers
+)
+
+print(response.json())`,
+}, {
+  title: "TypeScript",
+  language: "typescript",
+  source: `const response = await fetch("https://api.synthetic.new/v2/quotas", {
+  headers: {
+    "Authorization": "Bearer SYNTHETIC_API_KEY"
+  }
+});
+
+const quotas = await response.json();
+console.log(quotas);`,
+}, {
+  title: "curl",
+  language: "bash",
+  source: `curl https://api.synthetic.new/v2/quotas \\
+  -H "Authorization: Bearer $\{SYNTHETIC_API_KEY\}"`,
+}];
+
+<CodeTabs className="mb-4" code={quotasExamples} />
+
+## Example Response
+
+```json
+{
+  "subscription": {
+    "limit": 135,
+    "requests": 0,
+    "renewsAt": "2025-09-21T14:36:14.288Z"
+  }
+}
+```

@@ -3,8 +3,7 @@ import { Pre, Code } from "@/app/components/typography"
 import CodeTabs from "@/app/components/ui/code-tabs"
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { InfoIcon } from "lucide-react";
-import { SubdomainLink } from "@/app/dev/components/subdomain-link";
-import MessageSchemas from "../../message-schemas.mdx";
+import { SubdomainLink } from "@/app/components/subdomain-link";
 
 export const metadata = {
   title: "/messages/count_tokens",
@@ -31,7 +30,12 @@ Count the number of input tokens in a set of messages before sending them to a m
 | `model` | string | Yes | Model name (must be prefixed with `hf:`). See supported [Models](/docs/api/models). |
 | `messages` | array | Yes | Array of [message](#message-object) objects to count tokens for |
 
-<MessageSchemas />
+## Message Object
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `role` | string | Yes | Role: `user` or `assistant` |
+| `content` | string | Yes | Message content (text only for the `/count_tokens` endpoint) |
 
 ## Example Usage
 
@@ -41,16 +45,16 @@ export const countTokensExamples = [{
   source: `import anthropic
 
 client = anthropic.Anthropic(
-    api_key="SYNTHETIC_API_KEY",
-    base_url="${ANTHROPIC_API_BASE_URL}"
+  api_key="SYNTHETIC_API_KEY",
+  base_url="${ANTHROPIC_API_BASE_URL}"
 )
 
 # Count tokens for a simple text message
 response = client.messages.count_tokens(
-    model="hf:deepseek-ai/DeepSeek-V3-0324",
-    messages=[
-        {"role": "user", "content": "What is the capital of France?"}
-    ]
+  model="hf:deepseek-ai/DeepSeek-V3-0324",
+  messages=[
+    {"role": "user", "content": "What is the capital of France?"}
+  ]
 )
 
 print(f"Input tokens: {response.input_tokens}")`,
@@ -60,16 +64,16 @@ print(f"Input tokens: {response.input_tokens}")`,
   source: `import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-    apiKey: "SYNTHETIC_API_KEY",
-    baseURL: "${ANTHROPIC_API_BASE_URL}"
+  apiKey: "SYNTHETIC_API_KEY",
+  baseURL: "${ANTHROPIC_API_BASE_URL}"
 });
 
 // Count tokens for a simple text message
 const response = await client.messages.countTokens({
-    model: "hf:deepseek-ai/DeepSeek-V3-0324",
-    messages: [
-        { role: "user", content: "What is the capital of France?" }
-    ]
+  model: "hf:deepseek-ai/DeepSeek-V3-0324",
+  messages: [
+    { role: "user", content: "What is the capital of France?" }
+  ]
 });
 
 console.log(\`Input tokens: \${response.input_tokens}\`);`,
