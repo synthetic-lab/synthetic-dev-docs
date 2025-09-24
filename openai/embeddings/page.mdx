@@ -3,6 +3,7 @@ import { Pre, Code } from "@/app/components/typography"
 import CodeTabs from "@/app/components/ui/code-tabs"
 import { embeddingModels } from "@/app/dev/docs/api/models/page.mdx";
 import { ModelTable } from "@/app/pricing/model-tables";
+import { FreeEndpointTipAlert } from "@/app/dev/docs/components/free-endpoint-tip-alert";
 
 export const metadata = {
   title: "/embeddings",
@@ -13,6 +14,8 @@ export const metadata = {
 <Pre><Code>POST {OPENAI_API_BASE_URL}/embeddings</Code></Pre>
 
 Create a vector representation of a given input for similarity, retrieval, clustering, and other applications.
+
+<FreeEndpointTipAlert endpoint="/embeddings" />
 
 ## Supported Embeddings Models
 

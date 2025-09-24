@@ -2,6 +2,7 @@ import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page"
 import { Pre, Code } from "@/app/components/typography"
 import CodeTabs from "@/app/components/ui/code-tabs"
 import { ModelsTipAlert } from "@/app/dev/components/models-tip-alert";
+import { FreeEndpointTipAlert } from "@/app/dev/docs/components/free-endpoint-tip-alert";
 
 export const metadata = {
   title: "/models",
@@ -12,6 +13,8 @@ export const metadata = {
 <Pre><Code>GET {OPENAI_API_BASE_URL}/models</Code></Pre>
 
 List and retrieve information about available models.
+
+<FreeEndpointTipAlert endpoint="/models" />
 
 <ModelsTipAlert />
 

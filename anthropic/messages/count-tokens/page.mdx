@@ -4,6 +4,7 @@ import CodeTabs from "@/app/components/ui/code-tabs"
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { InfoIcon } from "lucide-react";
 import { SubdomainLink } from "@/app/components/subdomain-link";
+import { FreeEndpointTipAlert } from "@/app/dev/docs/components/free-endpoint-tip-alert";
 
 export const metadata = {
   title: "/messages/count_tokens",
@@ -14,6 +15,8 @@ export const metadata = {
 <Pre><Code>POST {ANTHROPIC_API_BASE_URL}/messages/count_tokens</Code></Pre>
 
 Count the number of input tokens in a set of messages before sending them to a model.
+
+<FreeEndpointTipAlert endpoint="/messages/count_tokens" />
 
 <Alert className="mb-4">
   <InfoIcon color="#00bb00" />
