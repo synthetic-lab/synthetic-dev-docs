@@ -1,0 +1,101 @@
+
+
+import { Pre, Code } from "@/app/components/typography"
+import CodeTabs from "@/app/components/ui/code-tabs"
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { InputWithCopyButton } from "@/app/components/ui/input-copy";
+import { InfoIcon } from "lucide-react";
+import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
+import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
+
+export const metadata = {
+  title: "Xcode Intelligence",
+};
+
+# Xcode Intelligence with Synthetic
+
+Synthetic is a fully compatible provider for Xcode Intelligence, new in Xcode 26, enabling
+context-aware suggestions and completions right in your Xcode workflow!
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Version Requirements</AlertTitle>
+  <AlertDescription>
+    <p>Xcode Intelligence is a new feature available in <strong className="font-semibold">Xcode 26 or later</strong>, which requires macOS 26 or later.</p>
+  </AlertDescription>
+</Alert>
+
+## Setup
+
+### Step 1: Add Synthetic as a Model Provider
+
+First, add Synthetic as a new model provider in Xcode settings:
+
+![Add Synthetic model provider in Xcode settings](/images/dev/docs/xcode_1_add_model.png)
+
+### Step 2: Configure Provider Details
+
+Copy and paste these values into Xcode:
+
+<div className="grid grid-cols-1 gap-y-2 mb-6">
+  <div className="grid grid-cols-[auto,1fr] gap-x-2">
+    <label className="w-20 md:w-32 text-sm font-medium text-gray-700 self-center">Base URL</label>
+    <div>
+      <InputWithCopyButton
+        value={OPENAI_API_BASE_URL}
+        strToCopy={OPENAI_API_BASE_URL}
+        className="border-gray-300 text-gray-900"
+      />
+      <p className="text-xs text-gray-500 mt-1">Xcode expects the Base URL without `/v1`, as shown in the screenshot below.</p>
+    </div>
+  </div>
+
+  <div className="grid grid-cols-[auto,1fr] gap-x-2 items-center">
+    <label className="w-20 md:w-32 text-sm font-medium text-gray-700">API Key</label>
+    <ApiKeyField
+      initResp={await getOrCreateApiKey()}
+      wrapperClassName="border-gray-300 text-gray-900"
+    />
+  </div>
+
+  <div className="grid grid-cols-[auto,1fr] gap-x-2 items-center">
+    <label className="w-20 md:w-32 text-sm font-medium text-gray-700">API Key Header</label>
+    <InputWithCopyButton
+      value="Authorization"
+      strToCopy="Authorization"
+      className="border-gray-300 text-gray-900"
+    />
+  </div>
+
+  <div className="grid grid-cols-[auto,1fr] gap-x-2 items-center">
+    <label className="w-20 md:w-32 text-sm font-medium text-gray-700">Description</label>
+    <InputWithCopyButton
+      value="Synthetic"
+      strToCopy="Synthetic"
+      className="border-gray-300 text-gray-900"
+    />
+  </div>
+</div>
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Important</AlertTitle>
+  <AlertDescription>
+    <p>The API Key field should contain your actual API key from your account settings. Click "Get Key" to get your API key.</p>
+  </AlertDescription>
+</Alert>
+
+![Configure Synthetic provider details in Xcode](/images/dev/docs/xcode_2_provider_details.png)
+
+### Step 3: Complete Setup
+
+Once you've saved your configuration, Synthetic will appear as an available provider:
+
+![Synthetic provider setup complete in Xcode](/images/dev/docs/xcode_3_setup_complete.png)
+
+## Using Xcode Intelligence with Synthetic
+
+After completing the setup, you can use Xcode Intelligence with Synthetic to enhance your development workflow:
+
+![Using Xcode Intelligence with Synthetic in the IDE](/images/dev/docs/xcode_4_ui.png)
