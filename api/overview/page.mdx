@@ -5,6 +5,7 @@ import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 import { ANTHROPIC_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
 import { Anchor } from "@/app/components/typography";
 import { SubdomainLink } from "@/app/components/subdomain-link";
+import { SmallRequestInfoAlert } from "@/app/(sidebar)/billing/components/small-request-info-alert"
 
 export const metadata = {
   title: "API Overview",
@@ -68,6 +69,8 @@ Rate limits vary by subscription tier:
 - **Standard**: {FIVE_HOUR_STANDARD_LIMIT} messages every 5 hours
 - **Pro**: {FIVE_HOUR_PRO_LIMIT} messages every 5 hours
 - **Usage Based**: No rate limits
+
+<SmallRequestInfoAlert />
 
 For more details, see our <SubdomainLink href="/pricing">Pricing</SubdomainLink> page.
 
