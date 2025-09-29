@@ -72,3 +72,14 @@ console.log(quotas);`,
   }
 }
 ```
+
+## Helpful Alias
+
+You can add this alias to your `~/.bashrc` or `~/.zshrc` to quickly get your quota information via `synthetic_quota`.
+(Thanks Jared for contributing!)
+
+```bash
+alias synthetic_quota='curl -s https://api.synthetic.new/v2/quotas \
+  -H "Authorization: Bearer ${SYNTHETIC_API_KEY}" \
+  | jq --color-output .'
+```
