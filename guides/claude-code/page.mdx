@@ -43,10 +43,10 @@ export ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic  # What server to 
 export ANTHROPIC_AUTH_TOKEN=\${SYNTHETIC_API_KEY}  # Auth key
 
 # Model configuration
-export ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.5  # The model to use for opus plan mode
-export ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.5  # The model to use for most tasks
-export ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.5  # Primarily used for summarization
-export CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5  # When starting subagents, what model to use
+export ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.6  # The model to use for opus plan mode
+export ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.6  # The model to use for most tasks
+export ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.6  # Primarily used for summarization
+export CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.6  # When starting subagents, what model to use
 
 # Privacy configuration
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1  # Don't send telemetry data
@@ -61,10 +61,10 @@ For easier access, create a `synclaude` function that launches Claude Code with 
 synclaude() {
   ANTHROPIC_BASE_URL=https://api.synthetic.new/anthropic \
   ANTHROPIC_AUTH_TOKEN=${SYNTHETIC_API_KEY} \
-  ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.5 \
-  ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.5 \
-  ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.5 \
-  CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.5 \
+  ANTHROPIC_DEFAULT_OPUS_MODEL=hf:zai-org/GLM-4.6 \
+  ANTHROPIC_DEFAULT_SONNET_MODEL=hf:zai-org/GLM-4.6 \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=hf:zai-org/GLM-4.6 \
+  CLAUDE_CODE_SUBAGENT_MODEL=hf:zai-org/GLM-4.6 \
   CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
   claude "$@"
 }

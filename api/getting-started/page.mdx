@@ -90,7 +90,7 @@ const client = new OpenAI({
     title: "Python",
     language: "python",
     source: `completion = client.chat.completions.create(
-  model="hf:zai-org/GLM-4.5",
+  model="hf:zai-org/GLM-4.6",
   messages=[
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Explain quantum computing in simple terms."}
@@ -102,7 +102,7 @@ print(completion.choices[0].message.content)`,
     title: "TypeScript",
     language: "typescript",
     source: `const completion = await client.chat.completions.create({
-  model: "hf:zai-org/GLM-4.5",
+  model: "hf:zai-org/GLM-4.6",
   messages: [
     { role: "system", content: "You are a helpful assistant." },
     { role: "user", content: "Explain quantum computing in simple terms." }
@@ -117,7 +117,7 @@ console.log(completion.choices[0].message.content);`,
   -H "Authorization: Bearer \${SYNTHETIC_API_KEY}" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "hf:zai-org/GLM-4.5",
+    "model": "hf:zai-org/GLM-4.6",
     "messages": [
       {
         "role": "system",
@@ -140,7 +140,7 @@ For long responses, streaming provides a better user experience:
     title: "Python",
     language: "python",
     source: `completion = client.chat.completions.create(
-  model="hf:zai-org/GLM-4.5",
+  model="hf:zai-org/GLM-4.6",
   messages=[
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Write a detailed explanation of machine learning."}
@@ -155,7 +155,7 @@ for chunk in completion:
     title: "TypeScript",
     language: "typescript",
     source: `const completion = await client.chat.completions.create({
-  model: "hf:zai-org/GLM-4.5",
+  model: "hf:zai-org/GLM-4.6",
   messages: [
     { role: "system", content: "You are a helpful assistant." },
     { role: "user", content: "Write a detailed explanation of machine learning." }
@@ -203,7 +203,7 @@ models.data.forEach(model => {
 ```python
 try:
   completion = client.chat.completions.create(
-    model="hf:zai-org/GLM-4.5",
+    model="hf:zai-org/GLM-4.6",
     messages=[{"role": "user", "content": "Hello!"}]
   )
 except openai.APIError as e:
