@@ -1,7 +1,7 @@
 import { Pre, Code } from "@/app/components/typography"
 import CodeTabs from "@/app/components/ui/code-tabs"
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
-import { InfoIcon } from "lucide-react";
+import { TriangleAlertIcon, InfoIcon } from "lucide-react";
 
 export const metadata = {
   title: "Claude Code",
@@ -71,3 +71,20 @@ synclaude() {
 
 # Then use: synclaude
 ```
+
+### Convenient Management CLI
+
+Thank you to community member <span className="font-semibold">parnexcodes</span> for building a
+convenient CLI ([parnexcodes/synclaude](https://github.com/parnexcodes/synclaude))
+for using Claude Code with Synthetic.
+
+See installation instructions at https://github.com/parnexcodes/synclaude
+
+<Alert className="mb-4">
+  <TriangleAlertIcon color="#bb0000" />
+  <AlertTitle>Third Party Package</AlertTitle>
+  <AlertDescription>
+    <span className="font-semibold">parnexcodes/synclaude</span> was developed by a member of our community and not affiliated with Synthetic.
+    We have done an initial safety check, but do your due dilligence and provide API keys at your own risk.
+  </AlertDescription>
+</Alert>
