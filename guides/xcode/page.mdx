@@ -47,16 +47,20 @@ Copy and paste these values into Xcode:
         strToCopy={OPENAI_API_BASE_URL}
         className="border-gray-300 text-gray-900"
       />
-      <p className="text-xs text-gray-500 mt-1">Xcode expects the Base URL without `/v1`, as shown in the screenshot below.</p>
+      <p className="text-xs text-gray-500 mt-1 pl-2">Xcode expects the Base URL without `/v1`, as shown in the screenshot below.</p>
     </div>
   </div>
 
   <div className="grid grid-cols-[auto,1fr] gap-x-2 items-center">
     <label className="w-20 md:w-32 text-sm font-medium text-gray-700">API Key</label>
-    <ApiKeyField
-      initResp={await getOrCreateApiKey()}
-      wrapperClassName="border-gray-300 text-gray-900"
-    />
+    <div>
+      <ApiKeyField
+        initResp={await getOrCreateApiKey()}
+        wrapperClassName="border-gray-300 text-gray-900"
+        showBearer={true}
+      />
+      <p className="text-xs text-gray-500 mt-1 pl-2">Xcode requires `Bearer `&nbsp; to be part of the API key.</p>
+    </div>
   </div>
 
   <div className="grid grid-cols-[auto,1fr] gap-x-2 items-center">
