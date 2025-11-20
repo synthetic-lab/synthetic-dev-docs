@@ -55,6 +55,47 @@ Create a model response for a given chat conversation.
 | `reasoning_content` | string | No | Reasoning content for thinking models (for assistant messages) |
 | `function_call` | object | No | (Deprecated) Function call to be executed (for assistant messages) |
 
+
+### Uploading images for vision models
+
+For multimodal image input, you can send images in your message's `content`
+array as follows:
+
+```json
+{
+  "role": "user",
+  "content": [
+    {
+      "type": "image_url",
+      "image_url": {
+        "url": "https://synthetic.new/images/totoro.jpg"
+      }
+    }
+  ]
+}
+```
+
+Image URLs can either be real URLs to files available over the internet, or
+base64-encoded strings containing the image data in the standard format:
+
+```
+data:<FORMAT>;base64,<DATA>
+```
+
+For example:
+
+```
+data:image/png;base64,iVBOR...
+```
+
+We support the following image formats:
+
+* `image/jpeg`
+* `image/png`
+* `image/gif`
+* `image/webp`
+* `image/tiff`
+
 ## Example Request
 
 export const chatCompletionsExamples = [{
