@@ -11,6 +11,7 @@ import { Anchor } from "@/app/components/typography";
 import { SubdomainLink } from "@/app/components/subdomain-link";
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { InfoIcon } from "lucide-react";
+import { providerMappings } from "@lobehub/icons";
 
 export const metadata = {
   title: "Models",
@@ -25,6 +26,7 @@ export function caselessNameSort(a, b) {
 export const proxiedModels = allProviderModelData().map(model => ({
   name: model.name,
   formattedContextLength: formatK(model.contextLength),
+  provider: model.userFacingProvider,
 })).sort(caselessNameSort);
 
 export const multiloraBaseModels = ALL_LORA_PROVIDERS.flatMap(provider => {
@@ -32,6 +34,7 @@ export const multiloraBaseModels = ALL_LORA_PROVIDERS.flatMap(provider => {
     return {
       name: baseModel,
       formattedContextLength: formatK(priceDef.contextLength),
+      provider: provider.userFacingName,
     };
   });
 });
@@ -40,6 +43,7 @@ export const embeddingModels = allProviderEmbeddingData().map(model => ({
   name: model.name,
   formattedContextLength: formatK(model.contextLength),
   url: `https://huggingface.co/${model.name}`,
+  provider: model.userFacingProvider,
 })).sort(caselessNameSort);
 
 # Available Models
@@ -64,6 +68,7 @@ Per-token pricing is also available with <SubdomainLink href="/billing">usage-ba
   appBaseUrl={APP_BASE_URL}
   showHfPrefix={true}
   showCopyButton={true}
+  showProvider={true}
 />
 
 ## LoRA Models
@@ -77,6 +82,7 @@ We support LoRAs for the following base models:
   models={multiloraBaseModels}
   modelHeader="Base Model"
   appBaseUrl={APP_BASE_URL}
+  showProvider={true}
 />
 
 ## Embedding Models
@@ -92,6 +98,7 @@ There's no additional charge for using embeddings, and embeddings requests don't
   appBaseUrl={APP_BASE_URL}
   showHfPrefix={true}
   showCopyButton={true}
+  showProvider={true}
 />
 
 ## On-Demand Models
