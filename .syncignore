@@ -1,0 +1,7 @@
+# This file is read by rsync in the synthetic-dev-docs sync Github Actions workflow.
+
+.gitignore
+.git/
+.github/
+
+layout.tsx
