@@ -1,8 +1,8 @@
 import { allProviderModelData, allProviderEmbeddingData } from "@/app/providers/provider";
 import { ALL_LORA_PROVIDERS } from "@/app/lora-providers/lora-provider";
-import { formatPrice } from "@/app/(sidebar)/billing/price-data-layer";
-import { formatK } from "@/app/(sidebar)/billing/money";
-import { ModelTable, } from "@/app/pricing/model-tables";
+import { formatPrice } from "@/app/(sidebar)/billing/usage-based/price-data-layer";
+import { formatK } from "@/app/(sidebar)/billing/usage-based/money";
+import { ModelTable } from "@/app/pricing/model-tables";
 import { flags } from "@/app/feature-flags";
 import { currentUser } from "@clerk/nextjs/server";
 import { APP_BASE_URL } from "@/app/conf";
