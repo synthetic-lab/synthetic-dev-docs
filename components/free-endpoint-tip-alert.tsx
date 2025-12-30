@@ -12,7 +12,7 @@ export function FreeEndpointTipAlert({ endpoint }: FreeEndpointTipAlertProps) {
     <AlertTitle>Tip</AlertTitle>
     <AlertDescription>
       <p>
-        <strong className="font-bold">{endpoint}</strong> requests do not count against your <SubdomainLink href="/billing/subscriptions">subscription</SubdomainLink> limits!
+        <strong className="font-bold">{endpoint}</strong> requests do not count against your <SubdomainLink href="/billing/">subscription</SubdomainLink> limits!
       </p>
     </AlertDescription>
   </Alert>;
