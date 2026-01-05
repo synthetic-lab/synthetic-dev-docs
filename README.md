@@ -1,6 +1,6 @@
 # Synthetic Developer Documentation
 
-This repository contains files served at **[https://dev.synthetic.new/](https://dev.synthetic.new/)**.
+This repository contains documentation served at **[https://dev.synthetic.new/](https://dev.synthetic.new/)**.
 
 ## 🚀 Overview
 
