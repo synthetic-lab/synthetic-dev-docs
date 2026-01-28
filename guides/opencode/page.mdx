@@ -1,0 +1,76 @@
+import { Pre, Code } from "@/app/components/typography";
+import CodeTabs from "@/app/components/ui/code-tabs";
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { TriangleAlertIcon, InfoIcon } from "lucide-react";
+import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
+import { SubdomainLink } from "@/app/components/subdomain-link";
+
+export const metadata = {
+  title: "OpenCode",
+};
+
+# OpenCode with Synthetic
+
+Synthetic is a native provider for [OpenCode](https://opencode.ai/), the TUI coding assistant!
+
+With Synthetic, you can use OpenCode with any [model we support](/docs/api/models).
+
+## Install OpenCode
+
+Follow the official guide to [Install OpenCode](https://opencode.ai/docs#install).
+
+## Quick Setup
+
+### 1. Open OpenCode in Your Terminal
+
+```bash
+opencode
+```
+
+### 2. Connect to Synthetic
+
+Type `/connect`.
+
+![/connect](/images/dev/docs/opencode/opencode-connect.png)
+
+### 3. Choose "Synthetic"
+
+Select **Synthetic** from the list of available providers.
+
+![Select Synthetic](/images/dev/docs/opencode/opencode-syntheticprovider.png)
+
+### 4. Enter Your Synthetic API Key
+
+Enter your <SubdomainLink href="/user-settings/api">API Key</SubdomainLink>.
+
+<div className="pb-4">
+  <ApiKeyField
+    initResp={await getOrCreateApiKey()}
+    wrapperClassName="border-gray-300 text-gray-900"
+  />
+</div>
+
+### 5. Choose a Model
+
+Select which model you want to use from our [available models](/docs/api/models).
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Synthetic Hosted Models</AlertTitle>
+  <AlertDescription>
+    We recommend Synthetic hosted models for maximum quality and performance.
+  </AlertDescription>
+</Alert>
+
+
+![Choose the desired open-source model.](/images/dev/docs/opencode/opencode-modelselect.png)
+
+### 6. You're All Set!
+
+Finish the rest of the onboarding flow to get started with OpenCode!
+
+## Getting Help
+
+- **Community**: Join our <SubdomainLink href="/discord">Discord</SubdomainLink>! The Synthetic team is active daily.
+- **E-mail**: See <SubdomainLink href="/user-settings/contact">Contact Us</SubdomainLink>
