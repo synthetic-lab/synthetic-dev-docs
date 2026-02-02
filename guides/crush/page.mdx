@@ -1,0 +1,75 @@
+import { Pre, Code } from "@/app/components/typography";
+import CodeTabs from "@/app/components/ui/code-tabs";
+import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
+import { TriangleAlertIcon, InfoIcon } from "lucide-react";
+import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
+import { SubdomainLink } from "@/app/components/subdomain-link";
+
+export const metadata = {
+  title: "Crush",
+};
+
+# Crush with Synthetic
+
+Synthetic is a native provider for [Crush](https://github.com/charmbracelet/crush), a TUI coding assistant!
+
+With Synthetic, you can use Crush with any [model we support](/docs/api/models).
+
+## Install Crush
+
+Follow the official guide to [Install Crush](https://github.com/charmbracelet/crush).
+
+## Quick Setup
+
+### 1. Open Crush in Your Terminal
+
+```bash
+crush
+```
+
+### 2. Select Synthetic as the Provider
+
+You'll first be asked to choose a provider. Type or scroll down to find "Synthetic".
+
+![Look for "Synthetic"](/images/dev/docs/crush/crush-chooseprovider.png)
+
+### 3. Select a Model
+
+Select a model under "Synthetic". Select which model you want to use from our [available models](/docs/api/models).
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Synthetic Hosted Models</AlertTitle>
+  <AlertDescription>
+    We recommend Synthetic hosted models for maximum quality and performance.
+  </AlertDescription>
+</Alert>
+
+### 4. Enter Your Synthetic API Key
+
+Enter your <SubdomainLink href="/user-settings/api">API Key</SubdomainLink>.
+
+<div className="pb-4">
+  <ApiKeyField
+    initResp={await getOrCreateApiKey()}
+    wrapperClassName="border-gray-300 text-gray-900"
+  />
+</div>
+
+![Enter your Synthetic API Key](/images/dev/docs/crush/crush-apikey.png)
+
+### 5. Choose a Project
+
+Confirm the project you want to work on. You have the option to initialize it or to start coding directly.
+
+![Confirm project initialization (optional).](/images/dev/docs/crush/crush-initialize.png)
+
+### 6. You're All Set!
+
+Finish the rest of the onboarding flow to get started with Crush!
+
+## Getting Help
+
+- **Community**: Join our <SubdomainLink href="/discord">Discord</SubdomainLink>! The Synthetic team is active daily.
+- **E-mail**: See <SubdomainLink href="/user-settings/contact">Contact Us</SubdomainLink>

@@ -7,7 +7,7 @@ import { flags } from "@/app/feature-flags";
 import { currentUser } from "@clerk/nextjs/server";
 import { APP_BASE_URL } from "@/app/conf";
 import { LoRATooltip } from "@/app/pricing/pricing-client";
-import { Anchor } from "@/app/components/typography";
+import { Anchor, Em } from "@/app/components/typography";
 import { SubdomainLink } from "@/app/components/subdomain-link";
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { InfoIcon } from "lucide-react";
@@ -59,6 +59,14 @@ export const embeddingModels = allProviderEmbeddingData().map(model => ({
 
 These models are included in all Standard and Pro <SubdomainLink href="/billing/">subscriptions</SubdomainLink>.
 Per-token pricing is also available with <Anchor href="/pricing">usage-based billing</Anchor>.
+
+<Alert className="mb-4">
+  <InfoIcon color="#00bb00" />
+  <AlertTitle>Full model intelligence</AlertTitle>
+  <AlertDescription>
+    <p>For our self-hosted <Em>Synthetic</Em> models, we run the weights directly and do not perform any quanitzation on either the weights or the KV cache.</p>
+  </AlertDescription>
+</Alert>
 
 <ModelTable
   className="mb-6"
