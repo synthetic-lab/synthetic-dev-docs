@@ -2,33 +2,33 @@ import { Pre, Code } from "@/app/components/typography";
 import CodeTabs from "@/app/components/ui/code-tabs";
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { TriangleAlertIcon, InfoIcon } from "lucide-react";
-import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { ApiKeyField } from "@/app/dev/components/api-key-field";
 import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 import { SubdomainLink } from "@/app/components/subdomain-link";
 
 export const metadata = {
-title: "Moltbot",
+title: "OpenClaw",
 };
 
-# Moltbot with Synthetic
+# OpenClaw with Synthetic
 
-Synthetic is a native provider for [Moltbot](https://www.molt.bot/), the self-hosted, agentic LLM bot!
+Synthetic is a native provider for [OpenClaw](https://www.openclaw.ai/), the self-hosted, agentic LLM bot!
 
-With Synthetic, you can use Moltbot with any [model we support](/docs/api/models),
+With Synthetic, you can use OpenClaw with any [model we support](/docs/api/models),
 including our high quality self-hosted models.
 
-## Install Moltbot
+## Install OpenClaw
 
-Follow the official guide to [Install Moltbot](https://docs.molt.bot/start/getting-started).
+Follow the official guide to [Install OpenClaw](https://docs.openclaw.ai/start/getting-started).
 
 ## Quick Setup
 
-Getting started with Moltbot and Synthetic takes just a few simple steps:
+Getting started with OpenClaw and Synthetic takes just a few simple steps:
 
-### 1. Open Moltbot in Your Terminal
+### 1. Open OpenClaw in Your Terminal
 
 ```bash
-moltbot
+openclaw
 ```
 
 ### 2. Select an Onboarding Mode
@@ -45,7 +45,7 @@ Select **Synthetic** from the list of available providers.
 
 ### 4. Paste Your Synthetic API Key
 
-Select **Synthetic API Key** and enter your <SubdomainLink href="/user-settings/api">API Key</SubdomainLink>.
+Select **Synthetic API Key** and enter your [API Key](/docs/api/overview).
 
 <div className="pb-4">
   <ApiKeyField
@@ -75,7 +75,7 @@ Select which model you want to use from our [available models](/docs/api/models)
 
 ### 6. You're All Set!
 
-Finish the rest of the onboarding flow to get started with Moltbot!
+Finish the rest of the onboarding flow to get started with OpenClaw!
 
 ## Getting Help
 

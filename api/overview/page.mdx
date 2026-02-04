@@ -1,8 +1,8 @@
-import { BaseUrlField } from "@/app/(sidebar)/user-settings/api/base-url-field";
-import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { BaseUrlField } from "@/app/dev/components/base-url-field";
+import { ApiKeyField } from "@/app/dev/components/api-key-field";
 import { FIVE_HOUR_STANDARD_LIMIT, FIVE_HOUR_PRO_LIMIT } from "@/app/(sidebar)/billing/subscription/tiers";
 import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
-import { ANTHROPIC_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
+import { ANTHROPIC_API_BASE_URL } from "@/app/dev/components/base-url-field";
 import { Anchor } from "@/app/components/typography";
 import { SubdomainLink } from "@/app/components/subdomain-link";
 import { SmallRequestInfoAlert } from "@/app/(sidebar)/billing/components/small-request-info-alert"
@@ -61,6 +61,7 @@ For a list of supported models, see the [Models](/docs/api/models) page.
 ### Synthetic endpoints:
 
 - [**`/quotas`**](/docs/synthetic/quotas) - Check your current Subscription usage.
+- [**`/search`**](/docs/synthetic/search) - Search the web.
 
 ## Rate Limits
 

@@ -1,12 +1,10 @@
-
-
 import { Pre, Code } from "@/app/components/typography"
 import CodeTabs from "@/app/components/ui/code-tabs"
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { InputWithCopyButton } from "@/app/components/ui/input-copy";
 import { InfoIcon } from "lucide-react";
-import { OPENAI_API_BASE_URL } from "@/app/(sidebar)/user-settings/api/page";
-import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { OPENAI_API_BASE_URL } from "@/app/dev/components/base-url-field";
+import { ApiKeyField } from "@/app/dev/components/api-key-field";
 import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 
 export const metadata = {

@@ -2,7 +2,7 @@ import { Pre, Code } from "@/app/components/typography";
 import CodeTabs from "@/app/components/ui/code-tabs";
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 import { TriangleAlertIcon, InfoIcon } from "lucide-react";
-import { ApiKeyField } from "@/app/(sidebar)/user-settings/api/api-key-field";
+import { ApiKeyField } from "@/app/dev/components/api-key-field";
 import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 import { SubdomainLink } from "@/app/components/subdomain-link";
 
@@ -48,7 +48,7 @@ Select a model under "Synthetic". Select which model you want to use from our [a
 
 ### 4. Enter Your Synthetic API Key
 
-Enter your <SubdomainLink href="/user-settings/api">API Key</SubdomainLink>.
+Enter your [API Key](/docs/api/overview).
 
 <div className="pb-4">
   <ApiKeyField
