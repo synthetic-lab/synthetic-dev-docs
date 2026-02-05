@@ -36,7 +36,7 @@ headers = {
 response = requests.post(
   "https://api.synthetic.new/v2/search",
   headers=headers,
-  data={ "query": "docs for the python requests library" }
+  json={ "query": "docs for the python requests library" }
 )
 
 print(response.json())`,
