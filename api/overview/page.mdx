@@ -1,6 +1,6 @@
 import { BaseUrlField } from "@/app/dev/components/base-url-field";
 import { ApiKeyField } from "@/app/dev/components/api-key-field";
-import { FIVE_HOUR_STANDARD_LIMIT, FIVE_HOUR_PRO_LIMIT } from "@/app/(sidebar)/billing/subscription/tiers";
+import { FIVE_HOUR_STANDARD_LIMIT, FIVE_HOUR_PRO_LIMIT } from "@/app/(sidebar)/billing/subscription/subscription-tiers";
 import { getOrCreateApiKey } from "@/app/api/api-key/api-key-data-layer";
 import { ANTHROPIC_API_BASE_URL } from "@/app/dev/components/base-url-field";
 import { Anchor } from "@/app/components/typography";
@@ -64,13 +64,8 @@ For a list of supported models, see the [Models](/docs/api/models) page.
 
 ## Rate Limits
 
-Rate limits vary by subscription tier:
-
-- **Standard**: <span>{FIVE_HOUR_STANDARD_LIMIT}</span> messages every 5 hours
-- **Pro**: <span>{FIVE_HOUR_PRO_LIMIT}</span> messages every 5 hours
-- **Usage Based**: No rate limits
-
-For more details, see our <SubdomainLink href="/pricing">Pricing</SubdomainLink> page.
+Rate limits vary by subscription tier. For more details, see our <SubdomainLink
+href="/pricing">Pricing</SubdomainLink> page.
 
 ## Getting Help
 
