@@ -67,7 +67,7 @@ import openai
 
 client = openai.OpenAI(
   api_key=os.environ.get("SYNTHETIC_API_KEY"),
-  base_url="https://api.glhf.chat/v1/",
+  base_url="https://api.synthetic.new/v1/",
 )`,
   }, {
     title: "TypeScript",
@@ -76,7 +76,7 @@ client = openai.OpenAI(
 
 const client = new OpenAI({
   apiKey: process.env.SYNTHETIC_API_KEY,
-  baseURL: "https://api.glhf.chat/v1/",
+  baseURL: "https://api.synthetic.new/v1/",
 });`,
   }]}
 />
@@ -113,7 +113,7 @@ console.log(completion.choices[0].message.content);`,
   }, {
     title: "curl",
     language: "bash",
-    source: `curl -X POST https://api.glhf.chat/v1/chat/completions \\
+    source: `curl -X POST https://api.synthetic.new/v1/chat/completions \\
   -H "Authorization: Bearer \${SYNTHETIC_API_KEY}" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -192,7 +192,7 @@ models.data.forEach(model => {
   }, {
     title: "curl",
     language: "bash",
-    source: `curl https://api.glhf.chat/v1/models \\
+    source: `curl https://api.synthetic.new/v1/models \\
   -H "Authorization: Bearer \${SYNTHETIC_API_KEY}"`,
   }]}
 />
