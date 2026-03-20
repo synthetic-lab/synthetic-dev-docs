@@ -22,11 +22,13 @@ export function caselessNameSort(a, b) {
   return 0;
 }
 
-export const proxiedModels = allProviderModelData().map(model => ({
-  name: model.name,
-  formattedContextLength: formatK(model.contextLength),
-  provider: model.userFacingProvider,
-})).sort(caselessNameSort);
+export const proxiedModels = allProviderModelData()
+  .filter(model => !model.hideModel)
+  .map(model => ({
+    name: model.name,
+    formattedContextLength: formatK(model.contextLength),
+    provider: model.userFacingProvider,
+  })).sort(caselessNameSort);
 
 export const multiloraBaseModels = ALL_LORA_PROVIDERS.flatMap(provider => {
   return Object.entries(provider.baseModels).map(([ baseModel, priceDef ]) => {
