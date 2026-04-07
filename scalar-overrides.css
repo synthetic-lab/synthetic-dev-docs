@@ -1,0 +1,24 @@
+.scalar-app {
+  min-height: 0 !important;
+}
+
+.scalar-app header {
+  display: none !important;
+}
+
+.scalar-app main {
+  background-color: theme("colors.zinc.50") !important;
+}
+
+.scalar-app .introduction-section {
+  display: none;
+}
+
+.scalar-app .section-container {
+  border-top: none;
+  padding: 0;
+}
+
+.scalar-app .section {
+  padding: 20px 0;
+}
